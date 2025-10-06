@@ -1,0 +1,40 @@
+
+services:
+  web:
+    image: nginx
+    volumes:
+      - ./app/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./app/nginx/ssl/:/etc/nginx/ssl/
+    ports:
+      - "8080:80"   # HTTP (optional, can redirect)
+      - "8443:443"  # HTTPS
+    environment:
+      - NGINX_HOST=test.blossom.mei
+      - NGINX_PORT=80
+
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    volumes:
+      - ./config/mysql:/var/lib/mysql
+
+  wordpress:
+    image: wordpress
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: admin
+      WORDPRESS_DB_PASSWORD: ${DB_PASSWORD}
+      WORDPRESS_DB_NAME: wordpress
+    volumes:
+      - ./app/wordpress:/var/www/html
+      - ./config/wordpress/wp-config.php:/var/www/html/wp-config.php
+
+volumes:
+  wordpress:
+  db:
