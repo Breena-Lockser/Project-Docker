@@ -10,7 +10,6 @@ services:
       - ./app/nginx/ssl/:/etc/nginx/ssl/
     ports:
       - "8080:80"
-      - "8443:443"
     environment:
       - NGINX_HOST=test.blossom.mei
       - NGINX_PORT=80
