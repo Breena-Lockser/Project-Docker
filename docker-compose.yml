@@ -34,7 +34,7 @@ services:
   wordpress:
     build:
       context: .
-      dockerfile: Dockerfile  # ou ./app/wordpress/Dockerfile si tu l’as déplacé
+      dockerfile: ./docker/wordpress/Dockerfile
     container_name: wordpress
     restart: always
     environment:
