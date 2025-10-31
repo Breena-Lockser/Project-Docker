@@ -31,9 +31,7 @@ services:
 
 # --- WordPress ---
   wordpress:
-    build:
-      context: .
-      dockerfile: ./docker/wordpress/Dockerfile
+    build: ./docker/wordpress/dockerfile
     container_name: wordpress
     restart: always
     environment:
@@ -43,7 +41,6 @@ services:
       WORDPRESS_DB_NAME: ${MYSQL_DATABASE}
     volumes:
       - ./app/wordpress:/var/www/html
-      - ./config/wordpress/wp-config.php:/var/www/html/wp-config.php
     depends_on:
       - db
     networks:
