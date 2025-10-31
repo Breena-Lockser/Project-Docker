@@ -19,17 +19,16 @@ services:
   # --- Base de données MySQL ---
   db:
     image: mysql:8.0
-    container_name: db
+    build: ./docker/mysql/dockerfile
+    container_name: mysql-server
     restart: always
     environment:
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
       - ./config/mysql:/var/lib/mysql
-    networks:
-      - backend
 
 # --- WordPress ---
   wordpress:
