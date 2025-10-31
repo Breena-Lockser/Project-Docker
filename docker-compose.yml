@@ -30,16 +30,24 @@ services:
 
 # --- WordPress ---
   wordpress:
-    build:
-      context: .
-      dockerfile: ./docker/wordpress/Dockerfile
+    image: wordpress:latest
     container_name: wordpress
     restart: always
     environment:
+<<<<<<< HEAD
       WORDPRESS_DB_HOST: ${MYSQL_HOST}
       WORDPRESS_DB_USER: ${MYSQL_USER}
       WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
       WORDPRESS_DB_NAME: ${MYSQL_DATABASE}
+=======
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: ${DB_USER}
+      WORDPRESS_DB_PASSWORD: ${DB_PASSWORD}
+      WORDPRESS_DB_NAME: ${DB_NAME}
+    volumes:
+      - ./app/wordpress:/var/www/html
+      - ./config/wordpress/wp-config.php:/var/www/html/wp-config.php
+>>>>>>> 50ef5f807c76a88f72ddaadb8be03167dbf1dfce
     depends_on:
       - db
     networks:
