@@ -43,6 +43,7 @@ services:
       WORDPRESS_DB_NAME: wordpress
     volumes:
       - ./app/wordpress:/var/www/html
+      - ./config/wordpress/wp-config.php:/var/www/html/wp-config.php
     depends_on:
       - db
     networks:
