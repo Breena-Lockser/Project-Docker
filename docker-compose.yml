@@ -31,19 +31,18 @@ services:
     networks:
       - backend
 
-  # --- WordPress ---
+# --- WordPress ---
   wordpress:
-    image: wordpress
+    build:
+      context: .
+      dockerfile: Dockerfile  # ou ./app/wordpress/Dockerfile si tu l’as déplacé
     container_name: wordpress
     restart: always
     environment:
       WORDPRESS_DB_HOST: db
-      WORDPRESS_DB_USER: admin
+      WORDPRESS_DB_USER: ${DB_USER}
       WORDPRESS_DB_PASSWORD: ${DB_PASSWORD}
-      WORDPRESS_DB_NAME: wordpress
-    volumes:
-      - ./app/wordpress:/var/www/html
-      - ./config/wordpress/wp-config.php:/var/www/html/wp-config.php
+      WORDPRESS_DB_NAME: ${DB_NAME}
     depends_on:
       - db
     networks:
